@@ -1,0 +1,154 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    background-color: #000;    
+    color: #333;
+    line-height: 1.1;
+    font-family: Helvetica Neue, Helvetica, Arial;
+}
+
+#main {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+#top {
+}
+
+#selector {
+    padding: 1em;
+}
+
+select {
+    font-size: 1.2em;    
+    font-family: inherit;
+    display: block;
+    margin: 0 auto;
+    max-width: 90%;
+
+}
+
+#schedule {
+    font-size: 0.9em;
+}
+
+#schedule img {
+    margin: 0 auto;
+    display: block;
+}
+
+.label {
+    font-weight: bold;    
+}
+
+.session {
+    background-color: #FFF;
+    border-top: 1px solid #333;
+    padding: 1em 1em;
+}
+
+.session + .session {
+    border-top: 1px solid #333;
+}
+
+.session-title {
+    font-size: 1.3em;
+    line-height: 1.2;
+    font-weight: bold;
+}
+
+.session-type {
+    font-size: 0.9em;
+    text-transform: lowercase;
+    background-color: #CCC;
+    border-radius: 0.2em;
+    padding: 0.1em 0.3em;
+    margin-left: 0.1em;
+}
+
+.session-type[data-type="Reception"] {
+    background-color: gold;
+}
+
+.session-type[data-type="Special Event"] {
+    background-color: gold;
+}
+
+.session-type[data-type="Panel"] {
+    background-color: lightblue;
+}
+
+.session-type[data-type="Outside Event"] {
+    background-color: pink;
+}
+
+.session-type[data-type="Hands-on"] {
+    background-color: lightgreen;
+}
+
+.session-type[data-type="Demo"] {
+    background-color: violet;
+}
+
+.session-description {
+    line-height: 1.3;
+    font-size: 0.9em;
+    color: #666;
+    padding-top: 0.5em;
+    max-height: 10em;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+.session > div {
+    padding-bottom: 0.5em;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;    
+}
+
+@media (max-width: 500px) {
+    .session {
+        padding: 0.75em;
+    }
+    .session > div {
+        padding-bottom: 0.5em;
+    }
+    .session-description {
+        max-height: 7em;
+    }
+}
+
+#footer {
+    color: #CCC;
+    text-align: center;
+    padding: 1em;
+    font-weight: 200;
+    line-height: 1.3;
+}
+
+#footer a {
+    text-decoration: underline;
+}

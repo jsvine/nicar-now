@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NICAR-NOW: What's happening next at NICAR 2017</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1">
+    <link type="text/css" rel="stylesheet" href="css/schedule.css">
+    <script src="js/underscore.min.js"></script>
+</head>
+<body>
+    <div id="main">
+        <div id="top">
+            <div id="selector"></div>
+        </div>
+        <div id="schedule">
+            <img src="img/loading.svg"/>
+        </div>
+        <div id="footer">
+            <a href="https://github.com/jsvine/nicar-now">NICAR-NOW</a>: Your <strong>unofficial</strong> guide to what's happening next at <a href="http://ire.org/conferences/nicar2017/schedule/">NICAR 2017</a>.
+        </div>
+    </div>
+    <script type="template" id="session-template">
+    <div class="session" data-date-and-time="<%= date %>|<%= time_start %>">
+        <div class="session-title-and-type">
+            <span class="session-title"><a href="<%= event_url %>"><%= title %></a></span>
+            <span class="session-type" data-type="<%= type %>"><%= type %></span>
+        </div>
+        <div class="session-speakers">
+            <span class="label">Speakers: </span>
+            <%= speakers %>
+        </div>
+        <div class="session-date-and-time">
+            <span class="label">Date/time: </span>
+            <%= full_date %> @ <%= time_start %>-<%= time_end %>
+        </div>
+        <div class="session-room">
+            <span class="label">Location: </span>
+            <%= room %>
+        </div>
+        <div class="session-description" data-show="short">
+            <%= description %>
+        </div>
+    </div>
+    </script>
+    <script src="js/schedule.js"></script>
+</body>
+</html>
