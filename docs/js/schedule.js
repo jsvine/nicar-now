@@ -178,7 +178,10 @@
         window.snapToTime = snapToTime;
     };
 
-    getJSON(DATA_URL, function (data) {
+    var t = getNearest15(new Date()).toISOString();
+    var data_url = DATA_URL + "?t=" + t;
+
+    getJSON(data_url, function (data) {
         prepareData(data)
         initApp(data);
     });
