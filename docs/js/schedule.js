@@ -2,6 +2,7 @@
     var root = this;
 
     var DATA_URL = "https://raw.githubusercontent.com/jsvine/nicar-2018-schedule/master/schedule/nicar-2018-schedule.json";
+    var TIME_OFFSET = -6;
 
     var getJSON = function (url, callback) {
         var xhr = new XMLHttpRequest();
@@ -58,7 +59,7 @@
         var dt = timeToGmt(
             session["date"],
             session["time_start"],
-            -5
+            TIME_OFFSET
         ).toISOString();
         session_el.setAttribute("data-dt", dt);
         session_el.setAttribute("data-date", session["date"]);
@@ -101,7 +102,7 @@
             optgroup.appendChild(option);
             _.keys(times).forEach(function (time) {
                 var option = createElement("option", "specific-time-slot");
-                option.value = timeToGmt(date, time, -5).toISOString();
+                option.value = timeToGmt(date, time, TIME_OFFSET).toISOString();
                 option.innerHTML = SHORT_DATES[date] + " @ " + time;
                 optgroup.appendChild(option);
             });
