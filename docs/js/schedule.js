@@ -1,7 +1,7 @@
 (function () {
     var root = this;
 
-    var DATA_URL = "https://raw.githubusercontent.com/jsvine/nicar-2017-schedule/master/schedule/nicar-2017-schedule.json"; 
+    var DATA_URL = "https://raw.githubusercontent.com/jsvine/nicar-2018-schedule/master/schedule/nicar-2018-schedule.json";
 
     var getJSON = function (url, callback) {
         var xhr = new XMLHttpRequest();
@@ -66,19 +66,19 @@
     };
 
     var DATES = {
-        "2017-03-01": "Weds., March 1",
-        "2017-03-02": "Thurs., March 2",
-        "2017-03-03": "Fri., March 3",
-        "2017-03-04": "Sat., March 4",
-        "2017-03-05": "Sun., March 5"
+        "2018-03-07": "Weds., March 7",
+        "2018-03-08": "Thurs., March 8",
+        "2018-03-09": "Fri., March 9",
+        "2018-03-10": "Sat., March 10",
+        "2018-03-11": "Sun., March 11"
     };
 
     var SHORT_DATES = {
-        "2017-03-01": "Wednesday",
-        "2017-03-02": "Thursday",
-        "2017-03-03": "Friday",
-        "2017-03-04": "Saturday",
-        "2017-03-05": "Sunday"
+        "2018-03-07": "Wednesday",
+        "2018-03-08": "Thursday",
+        "2018-03-09": "Friday",
+        "2018-03-10": "Saturday",
+        "2018-03-11": "Sunday"
     };
 
     var SHORT_DESC_LEN = 300;
