@@ -58,8 +58,6 @@
     var tmpl = _.template(tmp_el.innerHTML);
 
     var confTime2DateObj = function (date, time) {
-        // var offset_hrs = (TZ_OFFSET/(1000 * 3600));
-        //var date_str = date + "T" + time + (offset_hrs >= 0 ? "+" : "") + offset_hrs; 
         var wo_tz = new Date(date + "T" + time + "+00:00");
         var dt = new Date(wo_tz.getTime() - TZ_OFFSET);
         return dt;
@@ -157,9 +155,11 @@
             var value = this.value;
             var is_full_day = value.length === 10;
             sessions.forEach(function (s) {
-                var dt = s.getAttribute("data-dt");
+                var dt;
                 if (is_full_day) {
-                    dt = dt.slice(0, 10);
+                    dt = s.getAttribute("data-date-and-time").slice(0, 10);
+                } else {
+                    dt = s.getAttribute("data-dt");
                 }
                 var match = (value === "__all__") || (dt === value);
                 s.style.display = match ? "block" : "none";
