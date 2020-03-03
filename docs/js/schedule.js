@@ -1,8 +1,8 @@
 (function () {
     var root = this;
 
-    var DATA_URL = "https://raw.githubusercontent.com/jsvine/nicar-2019-schedule/master/schedule/nicar-2019-schedule.json";
-    var TZ = "America/Los_Angeles";
+    var DATA_URL = "https://raw.githubusercontent.com/ireapps/nicar-2020-schedule/master/nicar-2020-schedule.json";
+    var TZ = "America/Chicago";
 
     var TZ_OFFSET = (function () {
         var d = new Date();
@@ -40,25 +40,11 @@
         return el;
     };
 
-    var ATTRIBUTES = [
-        "title",
-        "type",
-        "description",
-        "speakers",
-        "date",
-        "time_start",
-        "time_end",
-        "length_in_hours",
-        "room",
-        "event_id",
-        "event_url"
-    ];
-
     var tmp_el = document.getElementById("session-template");
     var tmpl = _.template(tmp_el.innerHTML);
 
-    var confTime2DateObj = function (date, time) {
-        var wo_tz = new Date(date + "T" + time + "+00:00");
+    var confTime2DateObj = function (datetime) {
+        var wo_tz = new Date(datetime);
         var dt = new Date(wo_tz.getTime() - TZ_OFFSET);
         return dt;
     };
@@ -67,29 +53,26 @@
         var el = createElement("div");
         el.innerHTML = tmpl(session);
         var session_el = el.children[0];
-        var dt = confTime2DateObj(
-            session["date"],
-            session["time_start"],
-        ).toISOString();
+        var dt = confTime2DateObj(session["start_datetime"]).toISOString();
         session_el.setAttribute("data-dt", dt);
-        session_el.setAttribute("data-date", session["date"]);
+        session_el.setAttribute("data-date", session["start_datetime"]);
         return session_el;
     };
 
     var DATES = {
-        "2019-03-06": "Weds., March 6",
-        "2019-03-07": "Thurs., March 7",
-        "2019-03-08": "Fri., March 8",
-        "2019-03-09": "Sat., March 9",
-        "2019-03-10": "Sun., March 10",
+        "2020-03-04": "Weds., March 4",
+        "2020-03-05": "Thurs., March 5",
+        "2020-03-06": "Fri., March 6",
+        "2020-03-07": "Sat., March 7",
+        "2020-03-08": "Sun., March 8",
     };
 
     var SHORT_DATES = {
-        "2019-03-06": "Wednesday",
-        "2019-03-07": "Thursday",
-        "2019-03-08": "Friday",
-        "2019-03-09": "Saturday",
-        "2019-03-10": "Sunday",
+        "2020-03-04": "Wednesday",
+        "2020-03-05": "Thursday",
+        "2020-03-06": "Friday",
+        "2020-03-07": "Saturday",
+        "2020-03-08": "Sunday",
     };
 
     var SHORT_DESC_LEN = 300;
@@ -105,15 +88,15 @@
         _.keys(days).forEach(function (date) {
             var optgroup = createElement("optgroup");
             optgroup.label = DATES[date];
-            var times = _.groupBy(days[date], "time_start");
+            var times = _.groupBy(days[date], "start_datetime");
             var option = createElement("option");
             option.value = date;
             option.innerHTML = SHORT_DATES[date] + ", all sessions";
             optgroup.appendChild(option);
             _.keys(times).forEach(function (time) {
                 var option = createElement("option", "specific-time-slot");
-                option.value = confTime2DateObj(date, time).toISOString();
-                option.innerHTML = SHORT_DATES[date] + " @ " + time;
+                option.value = confTime2DateObj(time).toISOString();
+                option.innerHTML = SHORT_DATES[date] + " @ " + time.slice(11);
                 optgroup.appendChild(option);
             });
             select.appendChild(optgroup);
@@ -123,14 +106,20 @@
 
     var prepareData = function (data) {
         data.forEach(function (session) {
+            var n_timings = session["start_end"].length;
+            session["start_datetime"] = session["start_end"][0]["start_datetime"];
+            session["end_datetime"] = session["start_end"][n_timings - 1]["end_datetime"];
+            session["date"] = session["start_datetime"].slice(0, 10);
+            console.log(session["date"]);
             session["sort_key"] = [
                 session["date"],
-                session["time_start"],
-                session["time_end"],
+                session["start_datetime"],
+                session["end_datetime"],
                 session["title"]
             ].join("|"); 
+            session["speakers"] = session["speakers"].map(function (x) { return x.name; }).join(", ");
             session["full_date"] = DATES[session["date"]];
-            session["description"] = (session["description"] || "").replace(/\n/g, "<br/>") || "[No description yet.]";
+            session["session_description"] = (session["session_description"] || "").replace(/\n/g, "<br/>") || "[No description yet.]";
         });
         data.sort(function (a, b) {
             return a["sort_key"].localeCompare(b["sort_key"]);
@@ -195,7 +184,14 @@
     var data_url = DATA_URL + "?t=" + t;
 
     getJSON(data_url, function (data) {
-        prepareData(data)
-        initApp(data);
+        var filtered = (
+            data
+            .filter(function (s) {
+                console.log(s["pre_registration"])
+                return s["pre_registration"] == false;
+            })
+        );
+        prepareData(filtered)
+        initApp(filtered);
     });
 }).call(this);

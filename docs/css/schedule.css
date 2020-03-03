@@ -73,11 +73,7 @@ select {
     margin-left: 0.1em;
 }
 
-.session-type[data-type="Reception"] {
-    background-color: gold;
-}
-
-.session-type[data-type="Special Event"] {
+.session-type[data-type="Special"] {
     background-color: gold;
 }
 
@@ -85,12 +81,16 @@ select {
     background-color: lightblue;
 }
 
-.session-type[data-type="Outside Event"] {
+.session-type[data-type="Master Class"] {
     background-color: pink;
 }
 
 .session-type[data-type="Hands-on"] {
     background-color: lightgreen;
+}
+
+.session-type[data-type="Commons"] {
+    background-color: papayawhip;
 }
 
 .session-type[data-type="Demo"] {
