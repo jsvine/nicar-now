@@ -96,7 +96,7 @@
             _.keys(times).forEach(function (time) {
                 var option = createElement("option", "specific-time-slot");
                 option.value = confTime2DateObj(time).toISOString();
-                option.innerHTML = SHORT_DATES[date] + " @ " + time.slice(11);
+                option.innerHTML = SHORT_DATES[date] + " @ " + time.slice(11, 16);
                 optgroup.appendChild(option);
             });
             select.appendChild(optgroup);
