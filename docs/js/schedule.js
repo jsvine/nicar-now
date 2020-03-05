@@ -110,12 +110,11 @@
             session["start_datetime"] = session["start_end"][0]["start_datetime"];
             session["end_datetime"] = session["start_end"][n_timings - 1]["end_datetime"];
             session["date"] = session["start_datetime"].slice(0, 10);
-            console.log(session["date"]);
             session["sort_key"] = [
                 session["date"],
                 session["start_datetime"],
                 session["end_datetime"],
-                session["title"]
+                session["session_title"],
             ].join("|"); 
             session["speakers"] = session["speakers"].map(function (x) { return x.name; }).join(", ");
             session["full_date"] = DATES[session["date"]];
@@ -187,7 +186,6 @@
         var filtered = (
             data
             .filter(function (s) {
-                console.log(s["pre_registration"])
                 return s["pre_registration"] == false;
             })
         );
